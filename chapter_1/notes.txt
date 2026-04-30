@@ -1,0 +1,8 @@
+5 reasons to choose go --- 
+
+1. build time
+2. Fast start-up 
+3. Performance and efficiency 
+4. Concurrency Model
+5. Static type and compilation 
+
