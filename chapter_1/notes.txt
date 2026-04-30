@@ -6,3 +6,6 @@
 4. Concurrency Model
 5. Static type and compilation 
 
+--> Concurrency Model :  How a language lets you run and manage multiple tasks efficiently. 
+And go become popular largely because : 
+it made Concurrency easy + scalable + readable. 
