@@ -1,0 +1,8 @@
+app:
+  name: "Task Manager"
+  version: "1.0.0"
+
+storage:
+  file_path: "data/tasks.json"
+nothing:
+  nothing: "nothing"

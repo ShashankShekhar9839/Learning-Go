@@ -1,0 +1,37 @@
+Why this folder structure ? 
+
+cmd/app --->
+
+Entry point of application.
+Production Go apps usually keep main here 
+
+internal ---> 
+
+Actual business logic 
+Go has a special meaning for internal/ 
+Package inside it can't be imported outside the project 
+Very useful for encapsulation. 
+
+config ---> 
+
+External configuration files. 
+
+data ---> 
+JSON database for now.
+Later we can switch to SQLite/Postgress easily. 
+
+config.yml  ---> 
+
+Why config.go Exists ---> 
+
+This file is responsible for:
+
+Loading external configuration into the Go application.
+
+Think of it as:
+
+reading settings
+parsing them
+converting them into Go structs
+
+
