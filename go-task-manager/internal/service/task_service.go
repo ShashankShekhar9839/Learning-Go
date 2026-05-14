@@ -1,7 +1,9 @@
-package service 
+package service
 
 import (
+	"fmt"
 	"time"
+
 	"github.com/ShashankShekhar9839/go-task-manager/internal/storage"
 	"github.com/ShashankShekhar9839/go-task-manager/internal/task"
 )
@@ -16,7 +18,7 @@ func NewTaskService(storage storage.Storage) *TaskService {
 	}
 }
 
-func (s *TaskService) Addtask(title string) error {
+func (s *TaskService) AddTask(title string) error {
 	tasks, err := s.storage.LoadTasks()
 	if err != nil {
 		return  err
@@ -44,4 +46,36 @@ func (s *TaskService) Addtask(title string) error {
 
 func (s *TaskService) GetTasks() ([]task.Task, error) {
        return  s.storage.LoadTasks()
+}
+
+func (s *TaskService) CompleteTask(id int) error  {
+    
+	tasks, err := s.storage.LoadTasks();
+	if err != nil {
+         return  err
+	}
+
+	found := false
+	for i, task := range tasks {
+		if task.ID == id {
+			tasks[i].Completed = true
+			tasks[i].CompletedAt = time.Now()
+
+			found = true;
+			break
+		}
+	}
+     
+	if !found {
+		return  fmt.Errorf("task with is %d not found", id)
+	}
+     
+	err = s.storage.SaveTasks(tasks)
+
+	if err != nil {
+		 return  err
+	}
+
+	return  nil 
+
 }
