@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/ShashankShekhar9839/go-task-manager/internal/config"
+	"github.com/ShashankShekhar9839/go-task-manager/internal/service"
 	"github.com/ShashankShekhar9839/go-task-manager/internal/storage"
 )
 
@@ -16,10 +17,19 @@ func main() {
 
 	store := storage.NewJSONStorage(cfg.Storage.FilePath)
 
-	tasks, err := store.LoadTasks()
+	taskService := service.NewTaskService(store)
+
+	err = taskService.Addtask("Learn Go");
+	err = taskService.Addtask("Learn Go Again");
 	if err != nil {
-		log.Fatalf("failed to load tasks: %v", err)
+		log.Fatalf("Failed to add task: %v", err)
 	}
 
-	fmt.Println("Loaded Tasks:", tasks)
+	tasks, err := taskService.GetTasks()
+
+	if err != nil {
+		log.Fatalf("Failed to get tasks: %v", err)
+	}
+
+	fmt.Println(tasks)
 }
