@@ -83,6 +83,27 @@ func main() {
 
 	fmt.Println("task completed successfully")
 
+case "delete": 
+ 
+if len(os.Args) < 3 {
+	fmt.Println("Please provide task id")
+	return
+}
+
+id, err := strconv.Atoi(os.Args[2])
+if err != nil {
+	fmt.Println("Invalid task id")
+	return
+}
+
+err = taskService.DeleteTask(id)
+
+if err != nil {
+	log.Fatalf("Failed to delete task: %v", err)
+}
+
+fmt.Println("task deleted successfully")
+
 	default:
 		fmt.Println("unknown command")
 	}

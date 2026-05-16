@@ -79,3 +79,39 @@ func (s *TaskService) CompleteTask(id int) error  {
 	return  nil 
 
 }
+
+func (s *TaskService) DeleteTask(id int) error {
+
+     tasks, err := s.storage.LoadTasks()
+
+	 if err != nil {
+		return  err
+	 }
+
+	 found := false
+
+	 var updatedTasks []task.Task
+
+	 for _, task := range tasks {
+		if task.ID == id {
+			found = true
+			continue
+		}
+		updatedTasks = append(updatedTasks, task)
+	 }
+
+	 if !found {
+		return fmt.Errorf("task with id %d not found", id)
+	 }
+
+	 err = s.storage.SaveTasks(updatedTasks)
+
+	 if err != nil {
+		return  err
+	 }
+
+	 return nil
+
+
+
+}
