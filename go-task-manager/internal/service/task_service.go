@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"time"
+	"strings"
 
 	"github.com/ShashankShekhar9839/go-task-manager/internal/storage"
 	"github.com/ShashankShekhar9839/go-task-manager/internal/task"
@@ -19,6 +20,13 @@ func NewTaskService(storage storage.Storage) *TaskService {
 }
 
 func (s *TaskService) AddTask(title string) error {
+     
+		title = strings.TrimSpace(title)
+
+	if title == "" {
+		return fmt.Errorf("task title cannot be empty")
+	} 
+
 	tasks, err := s.storage.LoadTasks()
 	if err != nil {
 		return  err
